@@ -1,0 +1,46 @@
+EX-6 :- FIR Low pass filter using rectangular and triangular filte
+
+wp=0.2*pi;
+ws=0.3*pi;
+wc=(ws+wp)/2;
+dw=(ws-wp);
+M1=ceil(1.8*pi/dw)+1;
+M=49;
+n=linspace(0,M-1,M);
+hd=zeros(1,length(n));
+
+hd=sin(wc.*(n-((M-1)/2)))./((pi.*(n -( (M-1)/2))));
+hd(1,((M-1)/2)+1)=(wc/pi);
+WI=ones(1,length(n));
+h=hd.*WI;
+[H,w]=freqz(h,1,1024);
+wN=w./(2*pi);
+HN=abs(H)./max(abs(H));
+plot(wN,(20.*log10(HN)),'r');
+grid
+xlabel('\bf Normalized frequency------>')
+ylabel('\bf Normalized Magnitude Responses (db)------>')
+title('\bf Lowpass Filter Designed with Rectangular Window Function')
+
+
+
+wp = 0.2* pi;
+ws = 0.3 * pi;
+wc = (ws + wp) / 2;
+dw = (ws - wp);
+m1 = ceil(1.8 * pi / dw) + 1;
+m = 49;
+n = linspace(0, m - 1, m);
+hd = zeros(1, length(n));
+hd = sin(wc * ((n - (m - 1) / 2))) ./ ((pi * (n - ((m - 1) / 2))));
+hd(((m - 1) / 2) + 1) = (wc / pi);
+wi = (1 - abs(n - ((m - 1) / 2)) / ((m - 1) / 2));
+h = hd .* wi;
+[H, w] = freqz(h, 1, 1024);
+wn = w ./ (2 * pi);
+hn = abs(H) ./ max(abs(H));
+plot(wn, (20 * log10(hn)), 'r');
+grid;
+xlabel('\bf Normalized frequency');
+ylabel('\bf Normalized frequency response (dB)');
+title('\bf Lowpass filter designed with triangular window function');
